@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="App">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- 浏览器和缓存设置 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="expires" content="0" />
+  <title>自定义标签</title>
+</head>
+
+<body>
+  <hello></hello>
+  <hello></hello>
+  <hello></hello>
+
+  <br>
+  <div ng-controller="MyCtrl">
+    <input ng-model="ctrlFlavor" />
+    <drink flavor="{{ctrlFlavor}}"></drink>
+    <drink2 flavor="ctrlFlavor" greet="sayHello(name)"></drink2>
+  </div>
+
+</body>
+<script src="/asset/js/lib/angular/angular.min.js"></script>
+<script src="/asset/js/app/instruction/setval.js"></script>
+
+</html>

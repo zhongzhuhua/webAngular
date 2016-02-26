@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- 浏览器和缓存设置 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="expires" content="0" />
+  <!-- 公用 JS，CSS  -->
+  <link rel="stylesheet" href="/asset/css/golbal.css" />
+  <link rel="stylesheet" href="/asset/css/layout.css" />
+  <title>数据循环</title>
+</head>
+
+<body>
+  <div ng-controller="GreetCtrl">
+    Hello, {{name}}
+  </div>
+  <div ng-controller="ListCtrl">
+    <div ng-repeat="name in names">
+      {{name}} from {{departname}}
+    </div>
+  </div>
+</body>
+<script src="/asset/js/lib/angular/angular.min.js"></script>
+<script src="/asset/js/app/demo/data-repeat.js"></script>
+
+</html>

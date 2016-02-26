@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="App">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- 浏览器和缓存设置 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="expires" content="0" />
+  <!-- 公用 JS，CSS  -->
+  <title>Ng-Class应用</title>
+  <style>
+  .error {
+    color: red;
+  }
+
+  .warning {
+    color: #f80;
+  }
+  </style>
+</head>
+
+<body>
+  <div ng-controller="Index">
+    isError 为 true 的时候，class="error"
+    isWarning 为 ture 的时候，class="warning"
+    <div ng-class="{error: isError, warning: isWarning}">{{messageText}}</div>
+    <button ng-click="showError()">Simulate Error</button>
+    <button ng-click="showWarning()">Simulate Warning</button>
+  </div>
+</body>
+<script src="/asset/js/lib/angular/angular.min.js"></script>
+<script src="/asset/js/app/demo/ng-class.js"></script>
+
+</html>

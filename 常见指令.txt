@@ -1,0 +1,120 @@
+js 文件
+
+  angular.module 声明定义好的模块，可以3个参数
+  angular.module('moduleName', [requireModule], configFn);
+  moduleName 必选参数，模块名称
+  requireModule 依赖的模块列表
+  configFn 模块的启动配置函数，在angular config阶段会调用该函数，对模块中的组件进行实例化对象实例之前的特定配置
+
+  var myModule = angular.module(moduleName, []);
+  myModule.controller('controllerName',['$scope', 'myParam', ... function($scope, myParam, ...) {}]);
+  controllerName 必选参数，模块下控制器名称
+  [参数列表, function(参数列表系统) {}] 其中参数列表是声明注入的内容，function 则实现依赖注入
+  并且参数列表中，第一个参数一定是 '$scope'，其他参数必须有对应的模块
+
+  路由配置
+  myModule.config(function($routeProvider) {
+    $routeProvider.when('/routeName', {
+      templateUrl: url,
+      controller: 'controllerName'
+    }).when('/routeName', {
+      templateUrl: url,
+      controller: 'controllerName'
+    }).otherwise({
+      redirectTo: '/routeName'
+    })
+  });
+  url结尾为 routeName 的时候，对应的内容由 routeName 下的 templateUrl 指向的 url 来呈现，并且由对应的控制器来控制
+
+
+  自定义标签对
+  其中，restrict 值为标签格式 A <div name=""></div> ; E <name></name> ; C <div class="name"></div> ; M <!-- directive:name --><div></div>
+  template 当页面出现 restrict 标签的时候，自动替换成对应的 template 内容
+  templateUrl 对应 url 的内容就是 template 的内容，和 template 两者只需要出现一种配置
+  replace 用 template 替换标签中所有的内容
+  transclude 是否要拼接标签内容到 template 中，和 replace 两者出现一种，出现之后，在 template 中可以出现 <div ng-transclude></div> 对应标签内容就会替换该标识
+  compile function 编译阶段执行，一般不写，如果写要调用默认的 compile 避免覆盖原先的 compile
+  link function 链接阶段执行，建议 dom 元素操作放置在该配置中
+  require 基于某个 direction，有该 require 的标签，建议 restrict 设置为 'A' ，结果是<requireName name></requireName>
+  scope {} 标签内部作用域
+  controller 标签内部控制器，一般用于暴露方法给其他标签对
+  myModule.directive('标签名称', function() {
+    return {
+      scope: {
+        keyOne: '@',  // 单向绑定，对应 keyOne = 父 scope 中的 keyOne 值，对应控件值 = {{key}}
+        keyTwo: '=',  // 双向绑定，对应 keyTwo = 父 scope 中的 keyTwo 值，并且如果 keyTwo 的改变会影响父 scope 中的 keyTwo，对应控件值 = key
+        keyThree: '&' // 传递 function，绑定 父对象的 function 方法，参数必须带上，对应控件值 = functionName(params...)
+      },
+      require: '^标签名称'
+      restrict: 'AEMC',
+      template: '<div>This is my order</div>',
+      replace: true,
+      compile: function() {
+
+      },
+      link: function(scope, element, attrs, 标签名称Ctrl) {
+        // scope 优先内部作用域
+        // element dom 对象
+        // attrs 标签属性列表
+        // 标签名称Ctrl 获取指向标签对应的 controller
+      }
+    };
+  });
+  return {
+    restrict: 'E',
+    transclude: true,
+    template: '<div>This is my order.<div ng-transclude></div></div>'
+  };
+
+  定义全局变量
+  myModule.constant('$name', value);
+  myModule.value('$name', value);
+
+指令和常见配置项
+
+
+
+页面配置
+  [prototype 这里写入 controller 中 $scope 绑定的属性或者方法等]
+
+  ng-app = 'moduleName' 指定页面由 moduleName 对应的模块来管理
+  ng-init = '' 初始化 controller 变量值
+  ng-controller = 'controllerName' 指定 ng-app 指定模块下所创建的对应 controllerName 的控制器
+  {{prototype}} [网速加载不太好的时候，会出现 {{}} 建议使用 ng-bind 之类的]
+  ng-bind = 'prototype'
+  ng-model = 'prototype'
+  ng-repeat = 'codes' codes 为循环的代码，例如 controller 中有 names ，则可以 ng-repeat = '* in names'
+  ng-class = '{页面样式: controller 的 bool 属性}' 样式绑定， ng-class = '{error: isError}' -- 如果 isError = true 的时候，则样式为 .error
+  ng-show = 'prototype/bool' 展示
+  ng-hide = 'prototype/bool' 隐藏
+  ng-disabled = 'prototype/bool' 禁用控件
+  ng-click = 'function/codes' 点击执行的事件
+  ng-dbl-click = 'function/codes' 双击事件
+  ng-mouse*/ng-key* = 'function/codes' 鼠标/键盘事件
+  ng-change = 'function/codes' 数据改变事件
+
+ajax 请求
+  $http({
+    method: 'get/post/jsonp',
+    url: url,
+    cache: true/false,
+    params: {
+      username: 'zhongzhuhua'
+    },
+    data: {
+      id: '100000'
+    }
+  }).success(function(data, status) {
+
+  }).error(function(data, status) {
+
+  });
+
+  post 请求的时候，params 是拼接到 url 后面的，data 是包含到主体表单中提交到后台的
+  method 是获取数据请求的方式
+  url 是请求地址
+
+ng 表达式
+
+  {{prototype | uppercase/lowercase}} 把 prototype 转成全大写/小写
+  {{[{属性}] | orderBy:'属性':true/false}} orderBy 是根据 [] 中的属性排序；ture/false 升序或者倒序，默认 false（升序）

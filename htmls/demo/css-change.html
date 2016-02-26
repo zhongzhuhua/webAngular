@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="App">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- 浏览器和缓存设置 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="expires" content="0" />
+  <!-- 公用 JS，CSS  -->
+  <link rel="stylesheet" href="/asset/css/golbal.css" />
+  <link rel="stylesheet" href="/asset/css/layout.css" />
+  <title>样式切换</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    div {
+      color: #fff;
+      line-height: 34px;
+      padding-left: 20px;
+    }
+    span {
+      cursor: pointer;
+    }
+    .text-green {
+      background-color: green;
+    }
+    .text-red {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="text-{{color}}" ng-controller="CssCtrl">
+    <span ng-click="setColor('red')">红色</span>
+    <span ng-click="setColor('green')">绿色</span>
+  </div>
+</body>
+<script src="/asset/js/lib/angular/angular.min.js"></script>
+<script src="/asset/js/app/demo/css-change.js"></script>
+
+</html>
